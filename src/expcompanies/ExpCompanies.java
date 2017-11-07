@@ -1,11 +1,7 @@
 package expcompanies;
 
-import bkgpi2a.CallCenterUser;
-import bkgpi2a.ClientAccountManager;
+import bkgpi2a.ClientCompany;
 import bkgpi2a.Company;
-import bkgpi2a.Executive;
-import bkgpi2a.SuperUser;
-import bkgpi2a.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -25,7 +21,6 @@ import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Footer;
 import org.apache.poi.ss.usermodel.Header;
-import org.apache.poi.ss.usermodel.Hyperlink;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.PaperSize;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -43,7 +38,7 @@ import org.bson.Document;
  * Programme pour exporter les sociétés d'un site Web dans un fichier Excel
  *
  * @author Thierry Baribaud
- * @version Octobre 2016
+ * @version 0.01
  */
 public class ExpCompanies {
 
@@ -51,7 +46,7 @@ public class ExpCompanies {
 
     private final static String filename = "companies.xlsx";
 
-    private final static String HOST = "192.168.0.17";
+    private final static String HOST = "10.65.62.133";
     private final static int PORT = 27017;
 
     /**
@@ -68,7 +63,7 @@ public class ExpCompanies {
         XSSFCellStyle cellStyle;
         XSSFCellStyle titleStyle;
         ObjectMapper objectMapper;
-        Company company;
+        ClientCompany clientCompany;
         MongoDatabase mongoDatabase;
         MongoClient MyMongoClient;
         CreationHelper createHelper;
@@ -79,9 +74,10 @@ public class ExpCompanies {
         objectMapper = new ObjectMapper();
 
         MyMongoClient = new MongoClient(HOST, PORT);
-        mongoDatabase = MyMongoClient.getDatabase("extranet");
+//        mongoDatabase = MyMongoClient.getDatabase("extranet");
+        mongoDatabase = MyMongoClient.getDatabase("extranet-dev");
 
-        MongoCollection<Document> MyCollection = mongoDatabase.getCollection("companies");
+        MongoCollection<Document> MyCollection = mongoDatabase.getCollection("clientCompanies");
         System.out.println(MyCollection.count() + " sociétés");
 
 //      Création d'un classeur Excel
@@ -140,22 +136,22 @@ public class ExpCompanies {
         int n = 0;
         try {
             while (MyCursor.hasNext()) {
-                company = objectMapper.readValue(MyCursor.next().toJson(), Company.class);
+                clientCompany = objectMapper.readValue(MyCursor.next().toJson(), ClientCompany.class);
                 System.out.println(n
-                        + " label:" + company.getLabel()
-                        + ", isactive:" + company.getIsActive()
-                        + ", companyType:" + company.getCompanyType()
-                        + ", id:" + company.getId()
-                        + ", uid:" + company.getUid());
+                        + " label:" + clientCompany.getLabel()
+                        + ", isactive:" + clientCompany.getIsActive()
+                        + ", companyType:" + clientCompany.getCompanyType()
+                        + ", id:" + clientCompany.getId()
+                        + ", uid:" + clientCompany.getUid());
                 n++;
                 ligne = feuille.createRow(n);
 
                 cell = ligne.createCell(0);
-                cell.setCellValue(company.getLabel());
+                cell.setCellValue(clientCompany.getLabel());
                 cell.setCellStyle(cellStyle);
 
                 cell = ligne.createCell(1);
-                if (company.getIsActive()) {
+                if (clientCompany.getIsActive()) {
                     cell.setCellValue("Actif");
                 } else {
                     cell.setCellValue("Inactif");
@@ -163,18 +159,18 @@ public class ExpCompanies {
                 cell.setCellStyle(cellStyle);
 
                 cell = ligne.createCell(2);
-                cell.setCellValue(company.getCompanyType());
+                cell.setCellValue(clientCompany.getCompanyType());
                 cell.setCellStyle(cellStyle);
 
                 cell = ligne.createCell(3);
-                cell.setCellValue(company.getId());
+                cell.setCellValue(clientCompany.getId());
                 cell.setCellStyle(cellStyle);
 
                 cell = ligne.createCell(4);
-                cell.setCellValue(company.getUid());
+                cell.setCellValue(clientCompany.getUid());
                 link = (XSSFHyperlink) createHelper.createHyperlink(HyperlinkType.URL);
-                link.setAddress("https://dashboard.performance-immo.com/companies/" + company.getUid());
-                link.setLabel(company.getUid());
+                link.setAddress("https://dashboard.performance-immo.com/clientCompanies/" + clientCompany.getUid());
+                link.setLabel(clientCompany.getUid());
                 cell.setHyperlink((XSSFHyperlink) link);
                 cell.setCellStyle(hlinkStyle);
             }

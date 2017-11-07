@@ -1,36 +1,36 @@
 # ExpUsers
-Programme Java permettant d'extraire les sociétés d'un site Web dans un fichier Excel
+Programme Java permettant d'extraire les sociÃ©tÃ©s d'une base de donnÃ©es locale dans un fichier Excel
 
-##Utilisation:
+## Utilisation:
 ```
 java ExpCompany [-dbserver db] [-p chemin vers fichier] [-o fichier] [-d] [-t] 
 ```
-où :
-* ```-dbserver db``` est la référence à la base de données, par défaut désigne la base de données de développement. Voir fichier *myDatabases.prop* (optionnel).
-* ```-p chemin vers fichier``` est le chemin vers le fichier Excel. Amorcé à vide par défaut (paramètre optionnel).
-* ```-o fichier``` est le nom du fichier Excel qui recevra les utilisateurs. Amorcé à *companies.xlsx* par défaut (paramètre optionnel).
-* ```-d``` le programme s'exécute en mode débug, il est beaucoup plus verbeux. Désactivé par défaut (paramètre optionnel).
-* ```-t``` le programme s'exécute en mode test, les transcations en base de données ne sont pas faites. Désactivé par défaut (paramètre optionnel).
+oÃ¹ :
+* ```-dbserver db``` est la rÃ©fÃ©rence Ã  la base de donnÃ©es, par dÃ©faut dÃ©signe la base de donnÃ©es de dÃ©veloppement. Voir fichier *myDatabases.prop* (optionnel).
+* ```-p chemin vers fichier``` est le chemin vers le fichier Excel. AmorcÃ© Ã  vide par dÃ©faut (paramÃ¨tre optionnel).
+* ```-o fichier``` est le nom du fichier Excel qui recevra les sociÃ©tÃ©s. AmorcÃ© Ã  *companies.xlsx* par dÃ©faut (paramÃ¨tre optionnel).
+* ```-d``` le programme s'exÃ©cute en mode dÃ©bug, il est beaucoup plus verbeux. DÃ©sactivÃ© par dÃ©faut (paramÃ¨tre optionnel).
+* ```-t``` le programme s'exÃ©cute en mode test, les transactions en base de donnÃ©es ne sont pas faites. DÃ©sactivÃ© par dÃ©faut (paramÃ¨tre optionnel).
 
-##Pré-requis :
-- Java 6 ou supérieur.
+## PrÃ©-requis :
+- Java 6 ou supï¿½rieur.
 - JDBC Informix
 - JDBC MySql
 - Driver MongoDB
 - [xmlbeans-2.6.0.jar](https://xmlbeans.apache.org/)
 - [commons-collections4-4.1.jar](https://commons.apache.org/proper/commons-collections/download_collections.cgi)
 
-##Fichier des paramètres : 
+## Fichier des paramÃ¨tres : 
 
-Ce fichier permet de spécifier les paramètres d'accès aux différentes bases de données.
+Ce fichier permet de spÃ©cifier les paramÃ¨tres d'accÃ¨s aux diffÃ©rentes bases de donnÃ©es.
 
-A adapter selon les implémentations locales.
+A adapter selon les implÃ©mentations locales.
 
-Ce fichier est nommé : *MyDatabases.prop*.
+Ce fichier est nommÃ© : *MyDatabases.prop*.
 
-Le fichier *MyDatabases_Example.prop* est fourni à titre d'exemple.
+Le fichier *MyDatabases_Example.prop* est fourni Ã  titre d'exemple.
 
-##Références:
+## RÃ©fÃ©rences:
 
 - [API Java Exel POI](http://poi.apache.org/download.html)
 - [Tuto Java POI Excel](http://thierry-leriche-dessirier.developpez.com/tutoriels/java/charger-modifier-donnees-excel-2010-5-minutes/)
