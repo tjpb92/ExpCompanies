@@ -1,7 +1,6 @@
 package expcompanies;
 
 import bkgpi2a.ClientCompany;
-import bkgpi2a.Company;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -38,7 +37,7 @@ import org.bson.Document;
  * Programme pour exporter les sociétés d'un site Web dans un fichier Excel
  *
  * @author Thierry Baribaud
- * @version 0.01
+ * @version 0.02
  */
 public class ExpCompanies {
 
@@ -129,6 +128,12 @@ public class ExpCompanies {
 //        cell = titre.createCell((short) 5);
 //        cell.setCellStyle(titleStyle);
 //        cell.setCellValue("Société");
+        cell = titre.createCell((short) 5);
+        cell.setCellStyle(titleStyle);
+        cell.setCellValue("Numéro Siret");
+        cell = titre.createCell((short) 6);
+        cell.setCellStyle(titleStyle);
+        cell.setCellValue("Mode de facturation");
 
         // Lit les sociétés classés par nom
         MongoCursor<Document> MyCursor
@@ -173,10 +178,18 @@ public class ExpCompanies {
                 link.setLabel(clientCompany.getUid());
                 cell.setHyperlink((XSSFHyperlink) link);
                 cell.setCellStyle(hlinkStyle);
+
+                cell = ligne.createCell(5);
+                cell.setCellValue(clientCompany.getSiretNumber());
+                cell.setCellStyle(cellStyle);
+
+                cell = ligne.createCell(6);
+                cell.setCellValue(clientCompany.getBillingType());
+                cell.setCellStyle(cellStyle);
             }
 
             // Ajustement automatique de la largeur des colonnes
-            for (int k = 0; k < 5; k++) {
+            for (int k = 0; k < 7; k++) {
                 feuille.autoSizeColumn(k);
             }
 
