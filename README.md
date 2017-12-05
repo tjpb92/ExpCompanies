@@ -1,4 +1,4 @@
-# ExpUsers
+# ExpCompanies
 Programme Java permettant d'extraire les sociétés d'une base de données locale dans un fichier Excel
 
 ## Utilisation:
@@ -13,7 +13,7 @@ où :
 * ```-t``` le programme s'exécute en mode test, les transactions en base de données ne sont pas faites. Désactivé par défaut (paramètre optionnel).
 
 ## Pré-requis :
-- Java 6 ou sup�rieur.
+- Java 6 ou supérieur.
 - JDBC Informix
 - JDBC MySql
 - Driver MongoDB
